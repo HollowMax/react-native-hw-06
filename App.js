@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import LoginScreen from './components/LoginScreen';
+import RegistrationScreen from './components/RegistrationScreen';
 
 export default function App() {
+  const [page, setPage] = useState('registration');
+
+  const changePage = data => {
+    setPage(data);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Hello world, it is me!!!</Text>
-      <StatusBar style="auto" />
-    </View>
+    (page == 'registration' && (
+      <RegistrationScreen changePage={() => changePage('login')} />
+    )) ||
+    (page == 'login' && (
+      <LoginScreen setPage changePage={() => changePage('registration')} />
+    ))
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
