@@ -10,19 +10,17 @@ import {
   Dimensions,
 } from 'react-native';
 import { useState } from 'react';
-import { styles } from './RegistrationScreen.styled';
+import { styles } from './LoginScreen.styled';
 
-export default function RegistrationScreen({ changePage }) {
+export default function LoginScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(true);
   const [isFocus, setIsFocus] = useState({
     password: '#E8E8E8',
     email: '#E8E8E8',
-    login: '#E8E8E8',
   });
   const [formData, setFormData] = useState({
     password: '',
     email: '',
-    login: '',
   });
 
   const passwordDisplay = () => {
@@ -42,32 +40,14 @@ export default function RegistrationScreen({ changePage }) {
           style={{
             ...styles.image,
             width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
+            height: Dimensions.get('screen').height,
           }}
-          source={require('../../Screens/BG.jpg')}
+          source={require('../../../images/BG.jpg')}
         >
           <KeyboardAvoidingView style={styles.keyboard} behavior={'padding'}>
             <View style={styles.container}>
-              <View style={styles.box}>
-                <View style={styles.addBtn}>
-                  <Text style={styles.addBtnText}>+</Text>
-                </View>
-              </View>
-              <Text style={styles.title}>Реєстрація</Text>
+              <Text style={styles.title}>Увійти</Text>
               <View style={styles.form}>
-                <TextInput
-                  placeholder="Логін"
-                  style={{ ...styles.input, borderColor: isFocus.login }}
-                  selectionColor={'#4287f5'}
-                  onFocus={() => focused('login')}
-                  onBlur={() => unfocused('login')}
-                  onChangeText={value =>
-                    setFormData(prevState => ({
-                      ...prevState,
-                      login: value,
-                    }))
-                  }
-                />
                 <TextInput
                   placeholder="Адрес електронної пошти"
                   style={{ ...styles.input, borderColor: isFocus.email }}
@@ -114,17 +94,22 @@ export default function RegistrationScreen({ changePage }) {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.8}
-                  onPress={() => console.log(formData)}
+                  onPress={() => {
+                    console.log(formData);
+                    navigation.navigate('Home', { screen: 'Posts' });
+                  }}
                 >
-                  <Text>Зареєструватись</Text>
+                  <Text>Увійти</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity
                 style={styles.loginBtn}
                 activeOpacity={0.7}
-                onPress={changePage}
+                onPress={() => navigation.navigate('Registration')}
               >
-                <Text style={styles.loginText}>Уже є аккаунт? Увійти</Text>
+                <Text style={styles.loginText}>
+                  Немає аккаунта? Зареєструватись
+                </Text>
               </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>

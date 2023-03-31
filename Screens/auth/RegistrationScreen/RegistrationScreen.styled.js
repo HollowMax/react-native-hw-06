@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     width: '100%',
+    height: '100%',
   },
   image: {
     position: 'absolute',
@@ -23,24 +24,48 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   container: {
-    height: '61%',
+    height: '68%',
     width: '100%',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: '#fff',
   },
   title: {
-    fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
     textAlign: 'center',
 
     color: '#212121',
 
-    marginTop: 32,
+    marginTop: -30,
     marginBottom: 33,
   },
+  box: {
+    position: 'relative',
+    top: -60,
+    left: '50%',
+    transform: [{ translateX: -60 }],
 
+    backgroundColor: '#F6F6F6',
+    borderRadius: 16,
+    width: 120,
+    height: 120,
+  },
+  addBtn: {
+    position: 'relative',
+    left: 107,
+    top: 81,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#FF6C00',
+    borderRadius: 100,
+    width: 25,
+    height: 25,
+  },
+  addBtnText: {
+    color: '#FF6C00',
+    textAlign: 'center',
+  },
   form: {
     marginHorizontal: 16,
   },
@@ -67,7 +92,6 @@ export const styles = StyleSheet.create({
     transform: [{ translateY: -17 }],
   },
   showText: {
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: '#1B4371',
@@ -86,7 +110,6 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   BtnText: {
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: '#fff',
@@ -98,7 +121,6 @@ export const styles = StyleSheet.create({
     height: 19,
   },
   loginText: {
-    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     textAlign: 'center',
