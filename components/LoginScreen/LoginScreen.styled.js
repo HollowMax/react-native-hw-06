@@ -30,7 +30,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
-    fontFamily: 'Roboto',
     fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,
@@ -68,7 +67,6 @@ export const styles = StyleSheet.create({
     transform: [{ translateY: -17 }],
   },
   showText: {
-    fontFamily: 'Roboto',
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
@@ -88,8 +86,7 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   BtnText: {
-    fontFamily: 'Roboto',
-    fontSeight: 400,
+    fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
     color: '#fff',
@@ -101,7 +98,6 @@ export const styles = StyleSheet.create({
     height: 19,
   },
   loginText: {
-    fontFamily: 'Roboto',
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
