@@ -5,10 +5,13 @@ import CreatePostScreen from './CreatePostsScreen/CreatePostScreen';
 import ProfileScreen from './ProfileScreen/ProfileScreen';
 import ExitButton from '../../helpers/ExitButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useState } from 'react';
 
 const HomeTab = createBottomTabNavigator();
 
 export default function HomeScreen({ navigation }) {
+  const [userPosts, setUserPosts] = useState([]);
+
   return (
     <HomeTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <HomeTab.Screen
@@ -31,7 +34,9 @@ export default function HomeScreen({ navigation }) {
           ),
         }}
         name="Posts"
-        component={PostsScreen}
+        children={() => (
+          <PostsScreen userPosts={userPosts} navigation={navigation} />
+        )}
       />
       <HomeTab.Screen
         options={{
@@ -65,8 +70,14 @@ export default function HomeScreen({ navigation }) {
             />
           ),
         }}
+        initialParams={setUserPosts}
         name="CreatePost"
-        component={CreatePostScreen}
+        children={() => (
+          <CreatePostScreen
+            navigation={navigation}
+            setUserPosts={setUserPosts}
+          />
+        )}
       />
       <HomeTab.Screen
         options={{

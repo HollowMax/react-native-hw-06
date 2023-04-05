@@ -5,6 +5,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
 
+    justifyContent: 'space-between',
+
     paddingHorizontal: 16,
 
     borderTopWidth: 1,
@@ -51,5 +53,43 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#BDBDBD',
 
     marginBottom: 32,
+  },
+  place: {
+    flex: 1,
+
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 8,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderBottomColor: '#BDBDBD',
+    borderBottomWidth: 1,
+
+    marginBottom: 32,
+  },
+
+  btn: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    height: 51,
+    borderRadius: 100,
+  },
+  deleteBtn: {
+    width: 80,
+
+    alignSelf: 'center',
+
+    marginBottom: 20,
   },
 });
