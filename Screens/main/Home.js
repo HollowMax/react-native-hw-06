@@ -1,17 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import PostsScreen from './PostsScreen/PostsScreen';
 import CreatePostScreen from './CreatePostsScreen/CreatePostScreen';
 import ProfileScreen from './ProfileScreen/ProfileScreen';
-import ExitButton from '../../helpers/ExitButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useState } from 'react';
+import { MainPostsScreen } from '../nestedScreens';
+import ExitButton from '../../helpers/ExitButton';
 
 const HomeTab = createBottomTabNavigator();
 
 export default function HomeScreen({ navigation }) {
-  const [userPosts, setUserPosts] = useState([]);
-
   return (
     <HomeTab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <HomeTab.Screen
@@ -19,6 +16,7 @@ export default function HomeScreen({ navigation }) {
           title: 'Публікації',
           headerTitleAlign: 'center',
           headerRight: () => <ExitButton navigation={navigation} />,
+
           tabBarIcon: ({ focused, size, color }) => (
             <AntDesign
               name="appstore-o"
@@ -34,9 +32,7 @@ export default function HomeScreen({ navigation }) {
           ),
         }}
         name="Posts"
-        children={() => (
-          <PostsScreen userPosts={userPosts} navigation={navigation} />
-        )}
+        component={MainPostsScreen}
       />
       <HomeTab.Screen
         options={{
@@ -70,14 +66,8 @@ export default function HomeScreen({ navigation }) {
             />
           ),
         }}
-        initialParams={setUserPosts}
         name="CreatePost"
-        children={() => (
-          <CreatePostScreen
-            navigation={navigation}
-            setUserPosts={setUserPosts}
-          />
-        )}
+        component={CreatePostScreen}
       />
       <HomeTab.Screen
         options={{

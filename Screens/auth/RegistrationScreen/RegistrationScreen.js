@@ -10,9 +10,15 @@ import {
   Dimensions,
 } from 'react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
 import { styles } from './RegistrationScreen.styled';
+import { authSignUp } from '../../../redux/auth/authOperation';
+import { auth } from '../../../firebase/config';
 
 export default function RegistrationScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(true);
   const [isFocus, setIsFocus] = useState({
     password: '#E8E8E8',
@@ -24,6 +30,15 @@ export default function RegistrationScreen({ navigation }) {
     email: '',
     login: '',
   });
+
+  const onHandleSubmit = async () => {
+    dispatch(authSignUp(formData));
+    await onAuthStateChanged(auth, user => {
+      if (user) {
+        navigation.navigate('Home', { screen: 'Posts' });
+      }
+    });
+  };
 
   const passwordDisplay = () => {
     setShowPassword(prevState => !prevState);
@@ -114,10 +129,7 @@ export default function RegistrationScreen({ navigation }) {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.8}
-                  onPress={() => {
-                    console.log(formData);
-                    navigation.navigate('Home', { screen: 'Posts' });
-                  }}
+                  onPress={onHandleSubmit}
                 >
                   <Text>Зареєструватись</Text>
                 </TouchableOpacity>

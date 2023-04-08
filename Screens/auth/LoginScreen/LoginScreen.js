@@ -10,9 +10,15 @@ import {
   Dimensions,
 } from 'react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
 import { styles } from './LoginScreen.styled';
+import { authSignIn } from '../../../redux/auth/authOperation';
+import { auth } from '../../../firebase/config';
 
 export default function LoginScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   const [showPassword, setShowPassword] = useState(true);
   const [isFocus, setIsFocus] = useState({
     password: '#E8E8E8',
@@ -22,6 +28,15 @@ export default function LoginScreen({ navigation }) {
     password: '',
     email: '',
   });
+
+  const onHandleSubmit = async () => {
+    dispatch(authSignIn(formData));
+    await onAuthStateChanged(auth, user => {
+      if (user) {
+        navigation.navigate('Home');
+      }
+    });
+  };
 
   const passwordDisplay = () => {
     setShowPassword(prevState => !prevState);
@@ -94,10 +109,7 @@ export default function LoginScreen({ navigation }) {
                 <TouchableOpacity
                   style={styles.btn}
                   activeOpacity={0.8}
-                  onPress={() => {
-                    console.log(formData);
-                    navigation.navigate('Home', { screen: 'Posts' });
-                  }}
+                  onPress={onHandleSubmit}
                 >
                   <Text>Увійти</Text>
                 </TouchableOpacity>

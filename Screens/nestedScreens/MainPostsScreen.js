@@ -1,33 +1,60 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons, EvilIcons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+import { useSelector } from 'react-redux';
 
-export default function MainPostsScreen({ userPosts, navigation }) {
-  console.log(userPosts);
+export default function MainPostsScreen({ navigation }) {
+  const {
+    auth: { login, email },
+  } = useSelector(state => state);
+
+  const [posts, setPosts] = useState([]);
+
+  const getAllPosts = async () => {
+    const postColl = collection(db, 'posts');
+    await onSnapshot(postColl, doc => {
+      setPosts(
+        doc.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id,
+        }))
+      );
+    });
+  };
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.user}>
         <View style={styles.box} />
         <View>
-          <Text style={styles.name}>Name</Text>
-          <Text style={styles.email}>Email</Text>
+          <Text style={styles.name}>{login}</Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
       </View>
       <FlatList
-        data={userPosts}
-        keyExtractor={(item, indx) => indx.toString()}
-        renderItem={({ item }) => (
+        data={posts}
+        keyExtractor={(item, indx) => item.id}
+        renderItem={({ item, index }) => (
           <View style={{ marginTop: 20 }}>
             <Image style={styles.image} source={{ uri: item.photo }} />
             {item?.photoName && (
               <Text style={styles.name}>{item.photoName}</Text>
             )}
-
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={styles.Btn}
                 onPress={() => {
-                  navigation.navigate('Comments');
+                  navigation.navigate('Comments', {
+                    img: item.photo,
+                    postId: item.id,
+                  });
                 }}
               >
                 <EvilIcons
@@ -36,7 +63,9 @@ export default function MainPostsScreen({ userPosts, navigation }) {
                   color="#BDBDBD"
                   style={{ transform: [{ rotateY: '180deg' }] }}
                 />
-                <Text style={{ ...styles.Text, color: '#BDBDBD' }}>0</Text>
+                <Text style={{ ...styles.Text, color: '#BDBDBD' }}>
+                  {item.comCount}
+                </Text>
               </TouchableOpacity>
               {item.latitude && item.longitude && (
                 <TouchableOpacity

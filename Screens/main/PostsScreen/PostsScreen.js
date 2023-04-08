@@ -4,17 +4,16 @@ import {
   CommentsScreen,
   MapScreen,
 } from '../../nestedScreens';
+import Home from '../Home';
 
 const NestedScreen = createStackNavigator();
 
-export default function PostsScreen({ userPosts, navigation }) {
+export default function PostsScreen({ navigation }) {
   return (
     <NestedScreen.Navigator>
       <NestedScreen.Screen
         name="MainPosts"
-        children={() => (
-          <MainPostsScreen userPosts={userPosts} navigation={navigation} />
-        )}
+        component={Home}
         options={{ headerShown: false }}
       />
       <NestedScreen.Screen name="Comments" component={CommentsScreen} />

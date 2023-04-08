@@ -5,6 +5,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
+
+    alignItems: 'center',
   },
   image: {
     position: 'absolute',
@@ -15,10 +17,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   container: {
+    position: 'relative',
     height: '82%',
     width: '100%',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+
     backgroundColor: '#fff',
   },
   box: {
@@ -46,5 +50,41 @@ export const styles = StyleSheet.create({
   addBtnText: {
     color: '#FF6C00',
     textAlign: 'center',
+  },
+  image: {
+    height: 240,
+    backgroundColor: '#F6F6F6',
+
+    borderWidth: 1,
+    borderRadius: 8,
+
+    marginBottom: 5,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    marginTop: 5,
+  },
+  Text: {
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  Btn: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  nameText: {
+    textAlign: 'center',
+    fontSize: 30,
+
+    marginTop: -40,
+  },
+  exitBtn: {
+    position: 'absolute',
+    right: 0,
+    top: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
